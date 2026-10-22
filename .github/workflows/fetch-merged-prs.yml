@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.x"
 
@@ -26,7 +26,7 @@ jobs:
         run: python fetch_pr_data.py "$REPOSITORY" > merged-pull-requests.json
 
       - name: Upload pull request data
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: merged-pull-requests
           path: merged-pull-requests.json
