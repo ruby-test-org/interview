@@ -64,3 +64,26 @@ The **Fetch merged pull requests** workflow can also run manually in GitHub:
 
 The workflow automatically uses the current repository and the built-in
 `GITHUB_TOKEN`; no token secret needs to be configured.
+
+### Download the artifact with GitHub CLI
+
+Install and authenticate the [GitHub CLI](https://cli.github.com/) first:
+
+```sh
+gh auth login
+```
+
+List recent runs and copy the run ID from the output:
+
+```sh
+gh run list --workflow fetch-merged-prs.yml --limit 5
+```
+
+Download the artifact for that run into the current directory (replace
+`RUN_ID` with the ID you copied):
+
+```sh
+gh run download RUN_ID \
+  --repo ruby-test-org/interview \
+  --name merged-pull-requests
+```
