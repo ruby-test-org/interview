@@ -1,0 +1,33 @@
+name: Fetch merged pull requests
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Fetch merged pull requests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPOSITORY: ${{ github.repository }}
+        run: python fetch_pr_data.py "$REPOSITORY" > merged-pull-requests.json
+
+      - name: Upload pull request data
+        uses: actions/upload-artifact@v4
+        with:
+          name: merged-pull-requests
+          path: merged-pull-requests.json
+          if-no-files-found: error

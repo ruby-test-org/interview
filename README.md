@@ -52,3 +52,15 @@ python3 fetch_pr_data.py owner/repo > merged-pull-requests.json
 The script also recognizes the `GH_TOKEN` environment variable. It retries
 GitHub API responses with status 429 or 5xx, honoring `Retry-After` when
 provided.
+
+## Run with GitHub Actions
+
+The **Fetch merged pull requests** workflow can also run manually in GitHub:
+
+1. Open the repository's **Actions** tab.
+2. Select **Fetch merged pull requests**, then choose **Run workflow**.
+3. When the run completes, download the `merged-pull-requests` artifact from
+   the run's summary page.
+
+The workflow automatically uses the current repository and the built-in
+`GITHUB_TOKEN`; no token secret needs to be configured.
